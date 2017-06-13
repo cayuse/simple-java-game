@@ -1,3 +1,4 @@
+import simpleGameEngine.*;
 
 public class simpleGame
 {
