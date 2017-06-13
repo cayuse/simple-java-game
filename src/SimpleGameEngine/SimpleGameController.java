@@ -4,10 +4,10 @@ import java.awt.event.*;
 
 public class SimpleGameController implements ActionListener
 {
-   private final static int numGames = 3; // how many games to implement
+   private final static int NUMGAMES = 3; // how many games to implement
    private int currentGame = 0; // index to the currently running game.
-   private SimpleGameViewer myViewer = new SimpleGameViewer();
-   private SimpleGameInterface[] myGames = new SimpleGameInterface[numGames];
+   private SimpleGameViewer myViewer;
+   private SimpleGameInterface[] myGames = new SimpleGameInterface[NUMGAMES];
    
    
    public SimpleGameController()
@@ -15,7 +15,7 @@ public class SimpleGameController implements ActionListener
       // instantiate all the games
       myGames[0] = new TTTModel();
       myGames[1] = new ConnectModel();
-      myGames[3] = new OthelloModel();
+      myGames[2] = new OthelloModel();
       
       
       
@@ -24,6 +24,11 @@ public class SimpleGameController implements ActionListener
    // entry point to start execution.
    public void run()
    {
+      // now that this object is instantiated, we can go back and
+      // bring the viewer online, it needs access to this in order 
+      // to do call backs and get other information
+      myViewer = new SimpleGameViewer(this); // allows for call-backs.
+      //myViewer.showSelectionMenu();
       
    }
    
@@ -38,9 +43,9 @@ public class SimpleGameController implements ActionListener
    // for the select screen, this will be used to display the game icons
    String[] getGameIcons()
    {
-      String[] myGameIcons = new String[numGames];
+      String[] myGameIcons = new String[NUMGAMES];
 
-      for (int i = 0; i < numGames; i++)
+      for (int i = 0; i < NUMGAMES; i++)
       {
          myGameIcons[i] = myGames[i].getGameIcon();
       }
@@ -80,6 +85,12 @@ public class SimpleGameController implements ActionListener
    String getCurrentGameTitle()
    {
       return myGames[currentGame].getGameTitle();
+   }
+   
+   // returns the number of games
+   int getNumGames()
+   {
+      return NUMGAMES;
    }
 
 

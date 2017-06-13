@@ -7,6 +7,7 @@ public class TTTModel implements SimpleGameInterface
    static final String BOARD   = "res/boards/tttboard.png";
    static final String EXPIECE = "res/pieces/tttex.png";
    static final String OHPIECE = "res/pieces/tttoh.png";
+   static final String ICON    = "";
    
    private Marker currentPlayer;
    private Marker[][] board = new Marker[BOARDHW][BOARDHW];
@@ -105,6 +106,11 @@ public class TTTModel implements SimpleGameInterface
    public String getGameTitle()
    {
       return TITLE;
+   }
+   
+   public String getGameIcon()
+   {
+      return ICON;
    }
    
    // simple private method to switch the active player
