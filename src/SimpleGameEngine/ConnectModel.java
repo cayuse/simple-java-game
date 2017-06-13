@@ -1,17 +1,18 @@
-package simpleGameEngine;
+package SimpleGameEngine;
 
-public class OthelloModel implements simpleGameInterface
+public class ConnectModel implements SimpleGameInterface
 {
-   static final int BOARDHW = 3;
-   static final String BOARD   = "res/boards/othelloboard.png";
-   static final String EXPIECE = "res/pieces/othelloex.png";
-   static final String OHPIECE = "res/pieces/othellooh.png";
+   static final int BOARDHW = 7;
+   static final String TITLE    = "Connect Four";
+   static final String BOARD   = "res/boards/connectboard.png";
+   static final String EXPIECE = "res/pieces/connectex.png";
+   static final String OHPIECE = "res/pieces/connectoh.png";
    
    private Marker currentPlayer;
    private Marker[][] board = new Marker[BOARDHW][BOARDHW];
    
    // default constructor, clears the board and sets the player.
-   OthelloModel()
+   ConnectModel()
    {
       resetBoard();
       currentPlayer = Marker.EX;
@@ -53,7 +54,7 @@ public class OthelloModel implements simpleGameInterface
    // e.g. black, O
    public String ohPlayerName()
    {
-      return "White";
+      return "Red";
    }
    
    // This method takes the horiz/vert location of the attempted move
@@ -90,6 +91,11 @@ public class OthelloModel implements simpleGameInterface
    public Marker getMarkerAt(int horiz, int vert)
    {
       return board[horiz][vert];
+   }
+   
+   public String getGameTitle()
+   {
+      return TITLE;
    }
    
    // simple private method to switch the active player

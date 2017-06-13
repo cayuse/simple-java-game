@@ -1,9 +1,12 @@
-package simpleGameEngine;
+package SimpleGameEngine;
 
 enum Marker { MT, EX, OH };
 
-public interface simpleGameInterface
+public interface SimpleGameInterface
 {
+   // this method should return a relative path to the game's select icon
+   public String getGameIcon();
+   
    // This method should return a relative path to the game's board image
    public String getBoardBG();
    
@@ -42,4 +45,7 @@ public interface simpleGameInterface
    
    // this method returns a marker at the specified x/y location.
    public Marker getMarkerAt(int horiz, int vert);
+   
+   // this method returns a string representing the name of the game
+   public String getGameTitle();
 }

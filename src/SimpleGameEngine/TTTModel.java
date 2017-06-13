@@ -1,17 +1,18 @@
-package simpleGameEngine;
+package SimpleGameEngine;
 
-public class ConnectModel implements simpleGameInterface
+public class TTTModel implements SimpleGameInterface
 {
-   static final int BOARDHW = 7;
-   static final String BOARD   = "res/boards/connectboard.png";
-   static final String EXPIECE = "res/pieces/connectex.png";
-   static final String OHPIECE = "res/pieces/connectoh.png";
+   static final int BOARDHW = 3;
+   static final String TITLE    = "Tic Tac Toe";
+   static final String BOARD   = "res/boards/tttboard.png";
+   static final String EXPIECE = "res/pieces/tttex.png";
+   static final String OHPIECE = "res/pieces/tttoh.png";
    
    private Marker currentPlayer;
    private Marker[][] board = new Marker[BOARDHW][BOARDHW];
    
    // default constructor, clears the board and sets the player.
-   ConnectModel()
+   TTTModel()
    {
       resetBoard();
       currentPlayer = Marker.EX;
@@ -46,21 +47,30 @@ public class ConnectModel implements simpleGameInterface
    // e.g. white, red, X
    public String exPlayerName()
    {
-      return "Black";
+      return "X";
    }
    
    // This returns a string to be used to describe the "oh" player
    // e.g. black, O
    public String ohPlayerName()
    {
-      return "Red";
+      return "O";
    }
    
    // This method takes the horiz/vert location of the attempted move
    // and returns true or false if the move was legal/placed
    public boolean move(int horiz, int vert)
    {
-      return false;
+      if ( board[horiz][vert] == Marker.MT )
+      {
+         board[horiz][vert] = currentPlayer;
+         switchPlayers();
+         return true;
+      }
+      else
+      {
+         return false;
+      }
    }
    
    // This method is so the controller can ask whose turn it is.
@@ -90,6 +100,11 @@ public class ConnectModel implements simpleGameInterface
    public Marker getMarkerAt(int horiz, int vert)
    {
       return board[horiz][vert];
+   }
+   
+   public String getGameTitle()
+   {
+      return TITLE;
    }
    
    // simple private method to switch the active player

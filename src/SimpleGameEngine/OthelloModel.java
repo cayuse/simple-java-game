@@ -1,17 +1,18 @@
-package simpleGameEngine;
+package SimpleGameEngine;
 
-public class TTTModel implements simpleGameInterface
+public class OthelloModel implements SimpleGameInterface
 {
    static final int BOARDHW = 3;
-   static final String BOARD   = "res/boards/tttboard.png";
-   static final String EXPIECE = "res/pieces/tttex.png";
-   static final String OHPIECE = "res/pieces/tttoh.png";
+   static final String TITLE    = "Othello";
+   static final String BOARD   = "res/boards/othelloboard.png";
+   static final String EXPIECE = "res/pieces/othelloex.png";
+   static final String OHPIECE = "res/pieces/othellooh.png";
    
    private Marker currentPlayer;
    private Marker[][] board = new Marker[BOARDHW][BOARDHW];
    
    // default constructor, clears the board and sets the player.
-   TTTModel()
+   OthelloModel()
    {
       resetBoard();
       currentPlayer = Marker.EX;
@@ -46,30 +47,21 @@ public class TTTModel implements simpleGameInterface
    // e.g. white, red, X
    public String exPlayerName()
    {
-      return "X";
+      return "Black";
    }
    
    // This returns a string to be used to describe the "oh" player
    // e.g. black, O
    public String ohPlayerName()
    {
-      return "O";
+      return "White";
    }
    
    // This method takes the horiz/vert location of the attempted move
    // and returns true or false if the move was legal/placed
    public boolean move(int horiz, int vert)
    {
-      if ( board[horiz][vert] == Marker.MT )
-      {
-         board[horiz][vert] = currentPlayer;
-         switchPlayers();
-         return true;
-      }
-      else
-      {
-         return false;
-      }
+      return false;
    }
    
    // This method is so the controller can ask whose turn it is.
@@ -99,6 +91,11 @@ public class TTTModel implements simpleGameInterface
    public Marker getMarkerAt(int horiz, int vert)
    {
       return board[horiz][vert];
+   }
+   
+   public String getGameTitle()
+   {
+      return TITLE;
    }
    
    // simple private method to switch the active player
