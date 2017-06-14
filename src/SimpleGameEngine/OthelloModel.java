@@ -1,13 +1,17 @@
 package SimpleGameEngine;
 
+import javax.swing.Icon;
+import javax.swing.ImageIcon;
+
 public class OthelloModel implements SimpleGameInterface
 {
-   static final int BOARDHW = 3;
+   static final int BOARDHW = 8;
    static final String TITLE = "Othello";
-   static final String BOARD = "res/boards/othelloboard.png";
-   static final String EXPIECE = "res/pieces/othelloex.png";
-   static final String OHPIECE = "res/pieces/othellooh.png";
    static final String ICON = "res/icons/othello.png";
+   static final Icon MTPIECE = new ImageIcon("res/pieces/othellomt.png");
+   static final Icon OHPIECE = new ImageIcon("res/pieces/othellooh.png");
+   static final Icon EXPIECE = new ImageIcon("res/pieces/othelloex.png");
+
 
    private Marker currentPlayer;
    private Marker[][] board = new Marker[BOARDHW][BOARDHW];
@@ -16,26 +20,8 @@ public class OthelloModel implements SimpleGameInterface
    OthelloModel()
    {
       resetBoard();
-      currentPlayer = Marker.EX;
    }
 
-   // This method should return a relative path to the game's board image
-   public String getBoardBG()
-   {
-      return BOARD;
-   }
-
-   // this method returns a relative path to the game's 'ex' piece image
-   public String getExPiece()
-   {
-      return EXPIECE;
-   }
-
-   // this method returns a relative path to the game's 'oh' piece image
-   public String getOhPiece()
-   {
-      return OHPIECE;
-   }
 
    // this game returns a number height/width
    // all games are built with square boards, if the game doesn't have a square
@@ -87,12 +73,27 @@ public class OthelloModel implements SimpleGameInterface
          for (int k = 0; k < BOARDHW; k++)
             board[i][k] = Marker.MT;
       }
+      // Special Setup for Othello
+      board[3][3] = Marker.OH;
+      board[3][4] = Marker.EX;
+      board[4][3] = Marker.EX;
+      board[4][4] = Marker.OH;
+      
+      currentPlayer = Marker.OH;
    }
 
    // this method returns a marker at the specified x/y location.
-   public Marker getMarkerAt(int horiz, int vert)
+   public GamePiece getPieceAt(int horiz, int vert)
    {
-      return board[horiz][vert];
+      if (board[horiz][vert] == Marker.MT)
+      {
+         return new GamePiece(horiz, vert, true, MTPIECE);
+      }
+      else if (board[horiz][vert] == Marker.EX)
+      {
+         return new GamePiece(horiz, vert, false, EXPIECE);
+      }
+      return new GamePiece(horiz, vert, false, OHPIECE);
    }
 
    public String getGameTitle()

@@ -1,13 +1,18 @@
 package SimpleGameEngine;
 
+import javax.swing.Icon;
+import javax.swing.ImageIcon;
+
 public class ConnectModel implements SimpleGameInterface
 {
    static final int BOARDHW = 7;
    static final String TITLE = "Connect Four";
-   static final String BOARD = "res/boards/connectboard.png";
-   static final String EXPIECE = "res/pieces/connectex.png";
-   static final String OHPIECE = "res/pieces/connectoh.png";
    static final String ICON = "res/icons/connect.png";
+   static final Icon MTPIECE = new ImageIcon("res/pieces/connectmt.png");
+   static final Icon EXPIECE = new ImageIcon("res/pieces/connectex.png");
+   static final Icon OHPIECE = new ImageIcon("res/pieces/connectoh.png");
+   static final Icon BLANK = new ImageIcon("res/pieces/connectblank.png");
+
 
    private Marker currentPlayer;
    private Marker[][] board = new Marker[BOARDHW][BOARDHW];
@@ -16,25 +21,6 @@ public class ConnectModel implements SimpleGameInterface
    ConnectModel()
    {
       resetBoard();
-      currentPlayer = Marker.EX;
-   }
-
-   // This method should return a relative path to the game's board image
-   public String getBoardBG()
-   {
-      return BOARD;
-   }
-
-   // this method returns a relative path to the game's 'ex' piece image
-   public String getExPiece()
-   {
-      return EXPIECE;
-   }
-
-   // this method returns a relative path to the game's 'oh' piece image
-   public String getOhPiece()
-   {
-      return OHPIECE;
    }
 
    // this game returns a number height/width
@@ -49,7 +35,7 @@ public class ConnectModel implements SimpleGameInterface
    // e.g. white, red, X
    public String exPlayerName()
    {
-      return "Black";
+      return "Yellow";
    }
 
    // This returns a string to be used to describe the "oh" player
@@ -90,9 +76,22 @@ public class ConnectModel implements SimpleGameInterface
    }
 
    // this method returns a marker at the specified x/y location.
-   public Marker getMarkerAt(int horiz, int vert)
+   // connect4 hase a unique piece that no other game has
+   public GamePiece getPieceAt(int horiz, int vert)
    {
-      return board[horiz][vert];
+      if (vert == 0)
+      {
+         return new GamePiece(horiz, vert, false, BLANK);
+      }
+      else if (board[horiz][vert] == Marker.MT)
+      {
+         return new GamePiece(horiz, vert, true, MTPIECE);
+      }
+      else if (board[horiz][vert] == Marker.EX)
+      {
+         return new GamePiece(horiz, vert, false, EXPIECE);
+      }
+      return new GamePiece(horiz, vert, false, OHPIECE);
    }
 
    public String getGameTitle()

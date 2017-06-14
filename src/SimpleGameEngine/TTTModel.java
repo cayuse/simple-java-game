@@ -1,13 +1,16 @@
 package SimpleGameEngine;
 
+import javax.swing.Icon;
+import javax.swing.ImageIcon;
+
 public class TTTModel implements SimpleGameInterface
 {
    static final int BOARDHW = 3;
    static final String TITLE = "Tic Tac Toe";
-   static final String BOARD = "res/boards/tttboard.png";
-   static final String EXPIECE = "res/pieces/tttex.png";
-   static final String OHPIECE = "res/pieces/tttoh.png";
    static final String ICON = "res/icons/ttt.png";
+   static final Icon MTPIECE = new ImageIcon("res/pieces/tttmt.png");
+   static final Icon EXPIECE = new ImageIcon("res/pieces/tttex.png");
+   static final Icon OHPIECE = new ImageIcon("res/pieces/tttoh.png");
 
    private Marker currentPlayer;
    private Marker[][] board = new Marker[BOARDHW][BOARDHW];
@@ -16,25 +19,6 @@ public class TTTModel implements SimpleGameInterface
    TTTModel()
    {
       resetBoard();
-      currentPlayer = Marker.EX;
-   }
-
-   // This method should return a relative path to the game's board image
-   public String getBoardBG()
-   {
-      return BOARD;
-   }
-
-   // this method returns a relative path to the game's 'ex' piece image
-   public String getExPiece()
-   {
-      return EXPIECE;
-   }
-
-   // this method returns a relative path to the game's 'oh' piece image
-   public String getOhPiece()
-   {
-      return OHPIECE;
    }
 
    // this game returns a number height/width
@@ -95,12 +79,21 @@ public class TTTModel implements SimpleGameInterface
          for (int k = 0; k < BOARDHW; k++)
             board[i][k] = Marker.MT;
       }
+      currentPlayer = Marker.EX;
    }
 
    // this method returns a marker at the specified x/y location.
-   public Marker getMarkerAt(int horiz, int vert)
+   public GamePiece getPieceAt(int horiz, int vert)
    {
-      return board[horiz][vert];
+      if (board[horiz][vert] == Marker.MT)
+      {
+         return new GamePiece(horiz, vert, true, MTPIECE);
+      }
+      else if (board[horiz][vert] == Marker.EX)
+      {
+         return new GamePiece(horiz, vert, false, EXPIECE);
+      }
+      return new GamePiece(horiz, vert, false, OHPIECE);
    }
 
    public String getGameTitle()

@@ -33,7 +33,7 @@ public class SimpleGameViewer extends JFrame
       }
 
       // method-ize this, because it's a lot of ugly code
-      setAndConfigureButtons();
+      setAndConfigureMenuButtons();
 
       BorderLayout layout = new BorderLayout();
       setLayout(layout);
@@ -57,6 +57,41 @@ public class SimpleGameViewer extends JFrame
 
    }
 
+   // this method clears the interface, and sets it to a new game.
+   // for a new game
+   void setNewGame()
+   {
+      clearPanels();
+      int boardHW = myController.getCurrentBoardHW();
+      panelMid.setLayout(new GridLayout(boardHW, boardHW));
+      refreshScreen();
+   }
+   
+   // this method takes a 2d array of GamePieces and puts them on screen
+   void refreshScreen(GamePiece[][] myBoard)
+   {
+      int boardHW = myController.getCurrentBoardHW();
+      for (int y = 0; y < boardHW; y++)
+      {
+         for (int x = 0; x< boardHW; x++)
+         {
+            GamePiece thisPiece = myBoard[x][y];
+            JComponent nextItem;
+            if (thisPiece.isClickable)
+            {
+               nextItem = new JButton("", thisPiece.icon);
+               ((JButton) nextItem).addActionListener(myController);
+            }
+            else
+            {
+               nextItem = new JLabel(thisPiece.icon);
+            }
+            panelMid.add(nextItem);
+         }
+         refreshScreen();
+      }
+   }
+   
    // clears the screen and displays the game selection menu.
    void showSelectionMenu()
    {
@@ -99,7 +134,7 @@ public class SimpleGameViewer extends JFrame
     * listener for each, and that listener searches to tell which button got
     * pressed, then calls back to the controller to set the current game.
     */
-   private void setAndConfigureButtons()
+   private void setAndConfigureMenuButtons()
    {
       // instantiate buttons with custom listeners
       gameButtons = new JButton[gameIcons.length];

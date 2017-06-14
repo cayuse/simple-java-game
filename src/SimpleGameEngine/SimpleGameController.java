@@ -20,10 +20,28 @@ public class SimpleGameController implements ActionListener
    // method to callback from viewer
    void setGame(int index)
    {
+      // set currently active game
       currentGame = index;
-      int i = 0;
-      i++;
-      i++;
+      // reset the game
+      myGames[currentGame].resetBoard();
+      myViewer.setNewGame();
+   }
+   
+   //method to get the board model and pass it to the viewer for display
+   void refreshGame()
+   {
+      int boardHW = myGames[currentGame].getBoardHW();
+      GamePiece[][] myBoard = new GamePiece[boardHW][boardHW];
+      for (int x = 0; x < boardHW; x++)
+      {
+         for (int y = 0; y < boardHW; y++)
+         {
+            myBoard[x][y] = myGames[currentGame].getPieceAt(x, y);
+         }
+      }
+      
+      myViewer.refreshScreen(myBoard);
+      
    }
 
    // entry point to start execution.
@@ -67,23 +85,11 @@ public class SimpleGameController implements ActionListener
       }
       return myGameNames;
    }
-
-   // returns the current game's board image location
-   String getCurrentBoard()
+   
+   // returns the current game's board hegiht/width
+   int getCurrentBoardHW()
    {
-      return myGames[currentGame].getBoardBG();
-   }
-
-   // returns the current game's 'ex' image location
-   String getCurentExPiece()
-   {
-      return myGames[currentGame].getExPiece();
-   }
-
-   // returns the current game's 'oh' image location
-   String getCurrentOhPiece()
-   {
-      return myGames[currentGame].getOhPiece();
+      return myGames[currentGame].getBoardHW();
    }
 
    // returns the current game's 'ex' name
