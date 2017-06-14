@@ -25,6 +25,7 @@ public class SimpleGameController implements ActionListener
       // reset the game
       myGames[currentGame].resetBoard();
       myViewer.setNewGame();
+      refreshGame();
    }
    
    //method to get the board model and pass it to the viewer for display
@@ -40,7 +41,7 @@ public class SimpleGameController implements ActionListener
          }
       }
       
-      myViewer.refreshScreen(myBoard);
+      myViewer.refreshBoard(myBoard);
       
    }
 

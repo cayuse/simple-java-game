@@ -2,6 +2,8 @@ package SimpleGameEngine;
 
 import java.awt.*;
 import javax.swing.*;
+import javax.swing.border.Border;
+import javax.swing.border.EtchedBorder;
 import javax.swing.border.TitledBorder;
 import java.awt.event.*;
 
@@ -35,23 +37,28 @@ public class SimpleGameViewer extends JFrame
       // method-ize this, because it's a lot of ugly code
       setAndConfigureMenuButtons();
 
-      BorderLayout layout = new BorderLayout();
-      setLayout(layout);
-
-      panelTop = new JPanel(new GridLayout(1, 5));
-      setPanelVars(panelTop, "");
-      add(panelTop, BorderLayout.NORTH);
+      Border raisedEtched = BorderFactory.createEtchedBorder(EtchedBorder.RAISED);
+      panelTop = new JPanel();
+      //setPanelVars(panelTop, "");
+      add(panelTop);
+      panelTop.setBounds(0,0,800,25);
+      panelTop.setBorder(raisedEtched);
 
       panelMid = new JPanel();
-      setPanelVars(panelMid, "");
-      add(panelMid, BorderLayout.CENTER);
+      //setPanelVars(panelMid, "");
+      add(panelMid);
+      panelMid.setBounds(200,25,600,600);
+      panelMid.setBorder(raisedEtched);
 
-      panelLeft = new JPanel(new GridLayout(1, 5));
-      setPanelVars(panelLeft, "");
-      add(panelLeft, BorderLayout.WEST);
+      panelLeft = new JPanel();
+      //setPanelVars(panelLeft, "");
+      add(panelLeft);
+      panelLeft.setBounds(0, 25, 200, 625);
+      panelLeft.setBorder(raisedEtched);
 
-      setSize(800, 600);
+      setSize(800, 625);
       setLocationRelativeTo(null);
+      setResizable(false);
       setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
       setVisible(true);
 
@@ -64,12 +71,15 @@ public class SimpleGameViewer extends JFrame
       clearPanels();
       int boardHW = myController.getCurrentBoardHW();
       panelMid.setLayout(new GridLayout(boardHW, boardHW));
+      //panelMid.setSize(800, 600);
       refreshScreen();
    }
    
    // this method takes a 2d array of GamePieces and puts them on screen
-   void refreshScreen(GamePiece[][] myBoard)
+   void refreshBoard(GamePiece[][] myBoard)
    {
+      JLabel title = new JLabel(myController.getCurrentGameTitle(), JLabel.CENTER);
+      panelTop.add(title);
       int boardHW = myController.getCurrentBoardHW();
       for (int y = 0; y < boardHW; y++)
       {
