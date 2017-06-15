@@ -21,6 +21,8 @@ public class TTTModel implements SimpleGameInterface
       resetBoard();
    }
 
+   /*********************** Interface Methods ********************************/
+
    // this game returns a number height/width
    // all games are built with square boards, if the game doesn't have a square
    // space (connect 4 e.g.) then the model has to deal with that.
@@ -110,7 +112,10 @@ public class TTTModel implements SimpleGameInterface
    {
       return false;
    }
-
+   /************************ END INTERFACE ***********************************/
+   
+   /************************ Private Methods *********************************/
+   
    // simple private method to switch the active player
    public void switchPlayers()
    {

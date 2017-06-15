@@ -21,6 +21,8 @@ public class ConnectModel implements SimpleGameInterface
    {
       resetBoard();
    }
+   
+   /*********************** Interface Methods ********************************/
 
    // this game returns a number height/width
    // all games are built with square boards, if the game doesn't have a square
@@ -115,7 +117,9 @@ public class ConnectModel implements SimpleGameInterface
    {
       return false;
    }
+   /************************ END INTERFACE ***********************************/
    
+   /************************ Private Methods *********************************/
    // simple private method to switch the active player
    public void switchPlayers()
    {

@@ -21,6 +21,8 @@ public class OthelloModel implements SimpleGameInterface
       resetBoard();
    }
 
+   /*********************** Interface Methods ********************************/
+   
    // this game returns a number height/width
    // all games are built with square boards, if the game doesn't have a square
    // space (connect 4 e.g.) then the model has to deal with that.
@@ -57,6 +59,80 @@ public class OthelloModel implements SimpleGameInterface
       return legit;
    }
    
+   // This method is so the controller can ask whose turn it is.
+   public String getCurrentPlayer()
+   {
+      if (currentPlayer == Marker.EX)
+      {
+         return exPlayerName();
+      }
+      return ohPlayerName();
+   }
+
+   // This method simply tells the game model to clear the board back
+   // to the beginning state.
+   public void resetBoard()
+   {
+      for (int i = 0; i < BOARDHW; i++)
+      {
+         for (int k = 0; k < BOARDHW; k++)
+            board[i][k] = Marker.MT;
+      }
+      // Special Setup for Othello
+      board[3][3] = Marker.OH;
+      board[3][4] = Marker.EX;
+      board[4][3] = Marker.EX;
+      board[4][4] = Marker.OH;
+
+      currentPlayer = Marker.OH;
+   }
+
+   // this method returns a marker at the specified x/y location.
+   public GamePiece getPieceAt(int horiz, int vert)
+   {
+      if (board[horiz][vert] == Marker.MT)
+      {
+         return new GamePiece(horiz, vert, true, MTPIECE);
+      } 
+      else if (board[horiz][vert] == Marker.EX)
+      {
+         return new GamePiece(horiz, vert, false, EXPIECE);
+      }
+      return new GamePiece(horiz, vert, false, OHPIECE);
+   }
+
+   public String getGameTitle()
+   {
+      return TITLE;
+   }
+
+   public String getGameIcon()
+   {
+      return ICON;
+   }
+
+   public boolean forfeitTurn()
+   {
+      switchPlayers();
+      return true;
+   }
+   
+   // this method is useful for checking the board
+   // it simply lets us figure out the opposite marker
+   private Marker getOtherPlayer()
+   {
+      if (currentPlayer == Marker.OH)
+      {
+         return Marker.EX;
+      }
+      else
+      {
+         return Marker.OH;
+      }
+   }
+   /************************ END INTERFACE ***********************************/
+   
+   /************************ Private Methods *********************************/
    // this method will call a series of recursive functions. We can safely
    // use recursion here, because the maximum depth is 8 for this game
    // and it just makes a lot of sense to do so
@@ -203,7 +279,7 @@ public class OthelloModel implements SimpleGameInterface
       return false;
    }
    
-   boolean checkUL(int horiz, int vert)
+   private boolean checkUL(int horiz, int vert)
    {
       if (horiz < 0 || vert < 0)
       {
@@ -228,7 +304,7 @@ public class OthelloModel implements SimpleGameInterface
       return false;
    }
    
-   boolean checkUR(int horiz, int vert)
+   private boolean checkUR(int horiz, int vert)
    {
       if (horiz >= BOARDHW || vert < 0)
       {
@@ -253,7 +329,7 @@ public class OthelloModel implements SimpleGameInterface
       return false;
    }
    
-   boolean checkDL(int horiz, int vert)
+   private boolean checkDL(int horiz, int vert)
    {
       if (horiz < 0 || vert >= BOARDHW)
       {
@@ -277,7 +353,7 @@ public class OthelloModel implements SimpleGameInterface
       }
       return false;
    }
-   boolean checkDR(int horiz, int vert)
+   private boolean checkDR(int horiz, int vert)
    {
       if (horiz >= BOARDHW || vert >= BOARDHW)
       {
@@ -302,78 +378,6 @@ public class OthelloModel implements SimpleGameInterface
       return false;
    }
 
-   // This method is so the controller can ask whose turn it is.
-   public String getCurrentPlayer()
-   {
-      if (currentPlayer == Marker.EX)
-      {
-         return exPlayerName();
-      }
-      return ohPlayerName();
-   }
-   
-   // this method is useful for checking the board
-   // it simply lets us figure out the opposite marker
-   private Marker getOtherPlayer()
-   {
-      if (currentPlayer == Marker.OH)
-      {
-         return Marker.EX;
-      }
-      else
-      {
-         return Marker.OH;
-      }
-   }
-
-   // This method simply tells the game model to clear the board back
-   // to the beginning state.
-   public void resetBoard()
-   {
-      for (int i = 0; i < BOARDHW; i++)
-      {
-         for (int k = 0; k < BOARDHW; k++)
-            board[i][k] = Marker.MT;
-      }
-      // Special Setup for Othello
-      board[3][3] = Marker.OH;
-      board[3][4] = Marker.EX;
-      board[4][3] = Marker.EX;
-      board[4][4] = Marker.OH;
-
-      currentPlayer = Marker.OH;
-   }
-
-   // this method returns a marker at the specified x/y location.
-   public GamePiece getPieceAt(int horiz, int vert)
-   {
-      if (board[horiz][vert] == Marker.MT)
-      {
-         return new GamePiece(horiz, vert, true, MTPIECE);
-      } 
-      else if (board[horiz][vert] == Marker.EX)
-      {
-         return new GamePiece(horiz, vert, false, EXPIECE);
-      }
-      return new GamePiece(horiz, vert, false, OHPIECE);
-   }
-
-   public String getGameTitle()
-   {
-      return TITLE;
-   }
-
-   public String getGameIcon()
-   {
-      return ICON;
-   }
-
-   public boolean forfeitTurn()
-   {
-      switchPlayers();
-      return true;
-   }
-   
    // simple private method to switch the active player
    private void switchPlayers()
    {

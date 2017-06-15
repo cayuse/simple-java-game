@@ -25,6 +25,8 @@ public interface SimpleGameInterface
 
    // This method takes the horiz/vert location of the attempted move
    // and returns true or false if the move was legal/placed
+   // the model should automatically change players if a successful move
+   // has been placed
    public boolean move(int horiz, int vert);
 
    // This method is so the controller can ask whose turn it is.
