@@ -30,9 +30,6 @@ public interface SimpleGameInterface
    // This method is so the controller can ask whose turn it is.
    public Marker getCurrentPlayer();
 
-   // This method asks the model to check if there was a victory condition
-   public boolean checkForWins(Marker player);
-
    // This method simply tells the game model to clear the board back
    // to the beginning state.
    public void resetBoard();

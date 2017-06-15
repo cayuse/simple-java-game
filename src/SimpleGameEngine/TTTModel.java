@@ -65,11 +65,6 @@ public class TTTModel implements SimpleGameInterface
       return currentPlayer;
    }
 
-   // This method asks the model to check if there was a victory condition
-   public boolean checkForWins(Marker player)
-   {
-      return false;
-   }
 
    // This method simply tells the game model to clear the board back
    // to the beginning state.
