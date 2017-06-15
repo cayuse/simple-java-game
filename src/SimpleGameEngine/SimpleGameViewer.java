@@ -38,25 +38,22 @@ public class SimpleGameViewer extends JFrame
       setAndConfigureMenuButtons();
 
       Border raisedEtched = BorderFactory.createEtchedBorder(EtchedBorder.RAISED);
-      panelTop = new JPanel();
-      //setPanelVars(panelTop, "");
-      add(panelTop);
-      panelTop.setBounds(0,0,800,25);
-      panelTop.setBorder(raisedEtched);
+      
+      panelTop = new JPanel(new GridLayout(1, 1));
+      setPanelVars(panelTop, "");
+      add(panelTop, BorderLayout.NORTH);
 
-      panelMid = new JPanel();
-      //setPanelVars(panelMid, "");
-      add(panelMid);
-      panelMid.setBounds(200,25,600,600);
-      panelMid.setBorder(raisedEtched);
+      
+      panelLeft = new JPanel(new GridLayout(3,1));
+      add(panelLeft, BorderLayout.WEST);
+      setPanelVars(panelLeft, "Control");
+      
+      panelMid = new JPanel(new GridLayout(1,3));
+      setPanelVars(panelMid, "Game Area");
+      add(panelMid, BorderLayout.CENTER);
 
-      panelLeft = new JPanel();
-      //setPanelVars(panelLeft, "");
-      add(panelLeft);
-      panelLeft.setBounds(0, 25, 200, 625);
-      panelLeft.setBorder(raisedEtched);
 
-      setSize(800, 625);
+      setSize(750, 680);
       setLocationRelativeTo(null);
       setResizable(false);
       setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
@@ -70,14 +67,16 @@ public class SimpleGameViewer extends JFrame
    {
       clearPanels();
       int boardHW = myController.getCurrentBoardHW();
+      panelTop.setLayout(new GridLayout(1,1));
+      panelLeft.setLayout(new GridLayout(3,1));
       panelMid.setLayout(new GridLayout(boardHW, boardHW));
-      //panelMid.setSize(800, 600);
       refreshScreen();
    }
    
    // this method takes a 2d array of GamePieces and puts them on screen
    void refreshBoard(GamePiece[][] myBoard)
    {
+      clearPanels();
       JLabel title = new JLabel(myController.getCurrentGameTitle(), JLabel.CENTER);
       panelTop.add(title);
       int boardHW = myController.getCurrentBoardHW();
@@ -98,8 +97,10 @@ public class SimpleGameViewer extends JFrame
             }
             panelMid.add(nextItem);
          }
-         refreshScreen();
       }
+      configureMainMenuButton();
+      configureSkipTurnButton();
+      refreshScreen();
    }
    
    // clears the screen and displays the game selection menu.
@@ -120,6 +121,8 @@ public class SimpleGameViewer extends JFrame
          JLabel label = new JLabel(gameNames[i], JLabel.CENTER);
          panelMid.add(label);
       }
+      
+      configureExitButton();
 
       refreshScreen();
    }
@@ -135,8 +138,67 @@ public class SimpleGameViewer extends JFrame
    // redraws the screen
    private void refreshScreen()
    {
-      panelTop.setVisible(false);
-      panelTop.setVisible(true);
+      panelLeft.setVisible(false);
+      panelLeft.setVisible(true);
+   }
+   
+   // function to create a "main menu" button with callback to controller
+   private void configureMainMenuButton()
+   {
+      JButton button = new JButton("Main Menu");
+      button.addActionListener(new ActionListener()
+      {
+         public void actionPerformed(ActionEvent e)
+         {
+            myController.mainMenu();
+         }
+      });
+      panelLeft.add(button);  
+   }
+   
+   // function to create a 'skip turn' button.
+   private void configureSkipTurnButton()
+   {
+      JButton button = new JButton("Skip Turn");
+      button.addActionListener(new ActionListener()
+      {
+         public void actionPerformed(ActionEvent e)
+         {
+            myController.skipTurn();
+         }
+      });
+      button.setLayout(null);
+      panelLeft.add(button);  
+   }
+   
+   // function to create an quit button with built in callback to controller
+   private void configureExitButton()
+   {
+      JButton button = new JButton("Quit game");
+      button.addActionListener(new ActionListener()
+      {
+         public void actionPerformed(ActionEvent e)
+         {
+            myController.quitGame();
+         }
+      });
+      button.setLayout(null);
+      panelLeft.add(button);
+      //button.setLocation(30,30);
+   }
+
+   
+   // sets up the panel so that the text is within the border
+   private void setPanelVars(JPanel panel, String name)
+   {
+      TitledBorder border = new TitledBorder(name);
+      border.setTitleJustification(TitledBorder.LEFT);
+      border.setTitlePosition(TitledBorder.TOP);
+
+      panel.setBorder(border);
+      // panel.setMinimumHeight( 200);
+      panel.setEnabled(true);
+      panel.setVisible(true);
    }
 
    /*
@@ -171,17 +233,5 @@ public class SimpleGameViewer extends JFrame
          });
          gameButtons[i] = button;
       }
-   }
-
-   // sets up the panel so that the text is within the border
-   private void setPanelVars(JPanel panel, String name)
-   {
-      TitledBorder border = new TitledBorder(name);
-      border.setTitleJustification(TitledBorder.LEFT);
-      border.setTitlePosition(TitledBorder.TOP);
-
-      panel.setBorder(border);
-      panel.setEnabled(true);
-      panel.setVisible(true);
    }
 }

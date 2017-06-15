@@ -55,6 +55,25 @@ public class SimpleGameController implements ActionListener
       myViewer.showSelectionMenu();
 
    }
+   
+   // method to quit the game and return to the main menu
+   void mainMenu()
+   {
+      myViewer.showSelectionMenu();
+   }
+   
+   // method to skip a turn
+   void skipTurn()
+   {
+      // todo fix
+   }
+   // simple quit game method.
+   // could potentially clean up or display
+   // for now just exits
+   public void quitGame()
+   {
+      System.exit(0);
+   }
 
    public void actionPerformed(ActionEvent e)
    {
