@@ -390,5 +390,4 @@ public class OthelloModel implements SimpleGameInterface
          currentPlayer = Marker.EX;
       }
    }
-
 }

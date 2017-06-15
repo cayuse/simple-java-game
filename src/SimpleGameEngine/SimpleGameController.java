@@ -17,7 +17,7 @@ public class SimpleGameController implements ActionListener
       myGames[2] = new OthelloModel();
    }
 
-   // method to callback from viewer
+   // called by viewer, this method changes the active game
    void setGame(int index)
    {
       // set currently active game
@@ -85,6 +85,7 @@ public class SimpleGameController implements ActionListener
       System.exit(0);
    }
 
+   // this method only needs to handle clicks from an active game board
    public void actionPerformed(ActionEvent e)
    {
       ClickedButton btn = (ClickedButton) e.getSource();
