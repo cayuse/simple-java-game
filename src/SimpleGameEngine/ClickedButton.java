@@ -6,8 +6,8 @@ import javax.swing.JButton;
 
 public class ClickedButton extends JButton
 {
-   public static int horiz = -1;
-   public static int vert = -1;
+   public int horiz = -1;
+   public int vert = -1;
    
    ClickedButton(String str, Icon icon)
    {
