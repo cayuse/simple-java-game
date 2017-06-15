@@ -28,7 +28,7 @@ public interface SimpleGameInterface
    public boolean move(int horiz, int vert);
 
    // This method is so the controller can ask whose turn it is.
-   public Marker getCurrentPlayer();
+   public String getCurrentPlayer();
 
    // This method simply tells the game model to clear the board back
    // to the beginning state.

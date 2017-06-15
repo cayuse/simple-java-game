@@ -41,7 +41,7 @@ public class SimpleGameViewer extends JFrame
       setPanelVars(panelTop, "");
       add(panelTop, BorderLayout.NORTH);
 
-      panelLeft = new JPanel(new GridLayout(3, 1));
+      panelLeft = new JPanel(new GridLayout(4, 1));
       add(panelLeft, BorderLayout.WEST);
       setPanelVars(panelLeft, "Control");
 
@@ -49,7 +49,7 @@ public class SimpleGameViewer extends JFrame
       setPanelVars(panelMid, "Game Area");
       add(panelMid, BorderLayout.CENTER);
 
-      setSize(750, 680);
+      setSize(750, 660);
       setLocationRelativeTo(null);
       setResizable(false);
       setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
@@ -63,8 +63,8 @@ public class SimpleGameViewer extends JFrame
    {
       clearPanels();
       int boardHW = myController.getCurrentBoardHW();
-      panelTop.setLayout(new GridLayout(1, 1));
-      panelLeft.setLayout(new GridLayout(3, 1));
+      //panelTop.setLayout(new GridLayout(1, 1));
+      //panelLeft.setLayout(new GridLayout(4, 1));
       panelMid.setLayout(new GridLayout(boardHW, boardHW));
       refreshScreen();
    }
@@ -99,6 +99,7 @@ public class SimpleGameViewer extends JFrame
       configureMainMenuButton();
       configureSkipTurnButton();
       configureResetButton();
+      configurePlayerLabel();
       refreshScreen();
    }
 
@@ -167,10 +168,19 @@ public class SimpleGameViewer extends JFrame
       panelLeft.add(button);
    }
    
+   // function to add the "Whose turn is it" label
+   // its actually going to make a button so the 'look and feel' is consistent
+   private void configurePlayerLabel()
+   {
+      JButton button = new JButton(myController.getCurrentPlayerName() + "'s Play");
+      button.setEnabled(false);
+      panelLeft.add(button);
+   }
+   
    // function to create a "reset" button with callback to controller
    private void configureResetButton()
    {
-      JButton button = new JButton("Reset");
+      JButton button = new JButton("Clear Game Board");
       button.addActionListener(new ActionListener()
       {
          public void actionPerformed(ActionEvent e)

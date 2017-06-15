@@ -141,11 +141,18 @@ public class SimpleGameController implements ActionListener
    {
       return myGames[currentGame].getGameTitle();
    }
-
+   
+   // returns the current game's current player name
+   String getCurrentPlayerName()
+   {
+      return myGames[currentGame].getCurrentPlayer();
+   }
+   
    // returns the number of games
    int getNumGames()
    {
       return NUMGAMES;
    }
+   
 
 }

@@ -303,9 +303,13 @@ public class OthelloModel implements SimpleGameInterface
    }
 
    // This method is so the controller can ask whose turn it is.
-   public Marker getCurrentPlayer()
+   public String getCurrentPlayer()
    {
-      return currentPlayer;
+      if (currentPlayer == Marker.EX)
+      {
+         return exPlayerName();
+      }
+      return ohPlayerName();
    }
    
    // this method is useful for checking the board

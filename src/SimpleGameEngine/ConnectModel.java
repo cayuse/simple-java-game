@@ -63,11 +63,14 @@ public class ConnectModel implements SimpleGameInterface
    }
 
    // This method is so the controller can ask whose turn it is.
-   public Marker getCurrentPlayer()
+   public String getCurrentPlayer()
    {
-      return currentPlayer;
+      if (currentPlayer == Marker.EX)
+      {
+         return exPlayerName();
+      }
+      return ohPlayerName();
    }
-
 
    // This method simply tells the game model to clear the board back
    // to the beginning state.
