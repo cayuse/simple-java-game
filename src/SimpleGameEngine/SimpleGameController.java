@@ -27,8 +27,8 @@ public class SimpleGameController implements ActionListener
       myViewer.setNewGame();
       refreshGame();
    }
-   
-   //method to get the board model and pass it to the viewer for display
+
+   // method to get the board model and pass it to the viewer for display
    void refreshGame()
    {
       int boardHW = myGames[currentGame].getBoardHW();
@@ -40,9 +40,9 @@ public class SimpleGameController implements ActionListener
             myBoard[x][y] = myGames[currentGame].getPieceAt(x, y);
          }
       }
-      
+
       myViewer.refreshBoard(myBoard);
-      
+
    }
 
    // entry point to start execution.
@@ -55,18 +55,22 @@ public class SimpleGameController implements ActionListener
       myViewer.showSelectionMenu();
 
    }
-   
+
    // method to quit the game and return to the main menu
    void mainMenu()
    {
       myViewer.showSelectionMenu();
    }
-   
+
    // method to skip a turn
    void skipTurn()
    {
-      // todo fix
+      if (myGames[currentGame].forfeitTurn())
+      {
+         refreshGame();
+      }
    }
+
    // simple quit game method.
    // could potentially clean up or display
    // for now just exits
@@ -77,13 +81,11 @@ public class SimpleGameController implements ActionListener
 
    public void actionPerformed(ActionEvent e)
    {
-      ClickedButton btn = (ClickedButton)e.getSource();
-
-      System.out.println(btn.horiz);
-      System.out.println(btn.vert);
-      int i = 0;
-      i++;
-      i++;
+      ClickedButton btn = (ClickedButton) e.getSource();
+      if (myGames[currentGame].move(btn.horiz, btn.vert))
+      {
+         refreshGame();
+      }
    }
 
    /***************** Viewer Convenience Functions ****************************/
@@ -109,7 +111,7 @@ public class SimpleGameController implements ActionListener
       }
       return myGameNames;
    }
-   
+
    // returns the current game's board hegiht/width
    int getCurrentBoardHW()
    {

@@ -3,7 +3,7 @@ package SimpleGameEngine;
 enum Marker
 {
    MT, EX, OH
-};
+}; // "Empty, x's, and o's: used to track what's on the board"
 
 public interface SimpleGameInterface
 {
@@ -42,4 +42,9 @@ public interface SimpleGameInterface
 
    // this method returns a string representing the name of the game
    public String getGameTitle();
+   
+   // this method is used to forfeit a turn in a game.
+   // not all games technically allow this to happen, but some require it (othello)
+   // the game should return whether the switch was allowed or not
+   public boolean forfeitTurn();
 }

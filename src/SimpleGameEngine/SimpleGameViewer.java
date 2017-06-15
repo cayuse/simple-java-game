@@ -37,21 +37,17 @@ public class SimpleGameViewer extends JFrame
       // method-ize this, because it's a lot of ugly code
       setAndConfigureMenuButtons();
 
-      Border raisedEtched = BorderFactory.createEtchedBorder(EtchedBorder.RAISED);
-      
       panelTop = new JPanel(new GridLayout(1, 1));
       setPanelVars(panelTop, "");
       add(panelTop, BorderLayout.NORTH);
 
-      
-      panelLeft = new JPanel(new GridLayout(3,1));
+      panelLeft = new JPanel(new GridLayout(3, 1));
       add(panelLeft, BorderLayout.WEST);
       setPanelVars(panelLeft, "Control");
-      
-      panelMid = new JPanel(new GridLayout(1,3));
+
+      panelMid = new JPanel(new GridLayout(1, 3));
       setPanelVars(panelMid, "Game Area");
       add(panelMid, BorderLayout.CENTER);
-
 
       setSize(750, 680);
       setLocationRelativeTo(null);
@@ -67,12 +63,12 @@ public class SimpleGameViewer extends JFrame
    {
       clearPanels();
       int boardHW = myController.getCurrentBoardHW();
-      panelTop.setLayout(new GridLayout(1,1));
-      panelLeft.setLayout(new GridLayout(3,1));
+      panelTop.setLayout(new GridLayout(1, 1));
+      panelLeft.setLayout(new GridLayout(3, 1));
       panelMid.setLayout(new GridLayout(boardHW, boardHW));
       refreshScreen();
    }
-   
+
    // this method takes a 2d array of GamePieces and puts them on screen
    void refreshBoard(GamePiece[][] myBoard)
    {
@@ -82,7 +78,7 @@ public class SimpleGameViewer extends JFrame
       int boardHW = myController.getCurrentBoardHW();
       for (int y = 0; y < boardHW; y++)
       {
-         for (int x = 0; x< boardHW; x++)
+         for (int x = 0; x < boardHW; x++)
          {
             GamePiece thisPiece = myBoard[x][y];
             JComponent nextItem;
@@ -90,9 +86,9 @@ public class SimpleGameViewer extends JFrame
             {
                nextItem = new ClickedButton("", thisPiece.icon);
                ((ClickedButton) nextItem).horiz = thisPiece.horiz;
-               ((ClickedButton)nextItem).vert = thisPiece.vert;
+               ((ClickedButton) nextItem).vert = thisPiece.vert;
                ((JButton) nextItem).addActionListener(myController);
-            }
+            } 
             else
             {
                nextItem = new JLabel(thisPiece.icon);
@@ -104,7 +100,7 @@ public class SimpleGameViewer extends JFrame
       configureSkipTurnButton();
       refreshScreen();
    }
-   
+
    // clears the screen and displays the game selection menu.
    void showSelectionMenu()
    {
@@ -123,7 +119,7 @@ public class SimpleGameViewer extends JFrame
          JLabel label = new JLabel(gameNames[i], JLabel.CENTER);
          panelMid.add(label);
       }
-      
+
       configureExitButton();
 
       refreshScreen();
@@ -143,7 +139,7 @@ public class SimpleGameViewer extends JFrame
       panelLeft.setVisible(false);
       panelLeft.setVisible(true);
    }
-   
+
    // function to create a "main menu" button with callback to controller
    private void configureMainMenuButton()
    {
@@ -155,9 +151,9 @@ public class SimpleGameViewer extends JFrame
             myController.mainMenu();
          }
       });
-      panelLeft.add(button);  
+      panelLeft.add(button);
    }
-   
+
    // function to create a 'skip turn' button.
    private void configureSkipTurnButton()
    {
@@ -170,9 +166,9 @@ public class SimpleGameViewer extends JFrame
          }
       });
       button.setLayout(null);
-      panelLeft.add(button);  
+      panelLeft.add(button);
    }
-   
+
    // function to create an quit button with built in callback to controller
    private void configureExitButton()
    {
@@ -186,10 +182,8 @@ public class SimpleGameViewer extends JFrame
       });
       button.setLayout(null);
       panelLeft.add(button);
-      //button.setLocation(30,30);
    }
 
-   
    // sets up the panel so that the text is within the border
    private void setPanelVars(JPanel panel, String name)
    {
@@ -198,7 +192,6 @@ public class SimpleGameViewer extends JFrame
       border.setTitlePosition(TitledBorder.TOP);
 
       panel.setBorder(border);
-      // panel.setMinimumHeight( 200);
       panel.setEnabled(true);
       panel.setVisible(true);
    }

@@ -52,7 +52,8 @@ public class TTTModel implements SimpleGameInterface
          board[horiz][vert] = currentPlayer;
          switchPlayers();
          return true;
-      } else
+      } 
+      else
       {
          return false;
       }
@@ -88,7 +89,7 @@ public class TTTModel implements SimpleGameInterface
       if (board[horiz][vert] == Marker.MT)
       {
          return new GamePiece(horiz, vert, true, MTPIECE);
-      }
+      } 
       else if (board[horiz][vert] == Marker.EX)
       {
          return new GamePiece(horiz, vert, false, EXPIECE);
@@ -105,14 +106,20 @@ public class TTTModel implements SimpleGameInterface
    {
       return ICON;
    }
+   
+   public boolean forfeitTurn()
+   {
+      return false;
+   }
 
    // simple private method to switch the active player
-   private void switchPlayers()
+   public void switchPlayers()
    {
       if (currentPlayer == Marker.EX)
       {
          currentPlayer = Marker.OH;
-      } else
+      } 
+      else
       {
          currentPlayer = Marker.EX;
       }

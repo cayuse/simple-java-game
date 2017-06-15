@@ -13,7 +13,6 @@ public class ConnectModel implements SimpleGameInterface
    static final Icon OHPIECE = new ImageIcon("res/pieces/connectoh.png");
    static final Icon BLANK = new ImageIcon("res/pieces/connectblank.png");
 
-
    private Marker currentPlayer;
    private Marker[][] board = new Marker[BOARDHW][BOARDHW];
 
@@ -49,6 +48,17 @@ public class ConnectModel implements SimpleGameInterface
    // and returns true or false if the move was legal/placed
    public boolean move(int horiz, int vert)
    {
+      // for this game we allow a click in any column
+      // but the piece "falls" to the bottom
+      for (int i = BOARDHW - 1; i >= 0; i--)
+      {
+         if (board[horiz][i] == Marker.MT)
+         {
+            board[horiz][i] = currentPlayer;
+            switchPlayers();
+            return true;
+         }
+      }
       return false;
    }
 
@@ -82,11 +92,11 @@ public class ConnectModel implements SimpleGameInterface
       if (vert == 0)
       {
          return new GamePiece(horiz, vert, false, BLANK);
-      }
+      } 
       else if (board[horiz][vert] == Marker.MT)
       {
          return new GamePiece(horiz, vert, true, MTPIECE);
-      }
+      } 
       else if (board[horiz][vert] == Marker.EX)
       {
          return new GamePiece(horiz, vert, false, EXPIECE);
@@ -103,14 +113,19 @@ public class ConnectModel implements SimpleGameInterface
    {
       return ICON;
    }
-
+   public boolean forfeitTurn()
+   {
+      return false;
+   }
+   
    // simple private method to switch the active player
-   private void switchPlayers()
+   public void switchPlayers()
    {
       if (currentPlayer == Marker.EX)
       {
          currentPlayer = Marker.OH;
-      } else
+      } 
+      else
       {
          currentPlayer = Marker.EX;
       }

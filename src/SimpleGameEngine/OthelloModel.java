@@ -12,7 +12,6 @@ public class OthelloModel implements SimpleGameInterface
    static final Icon OHPIECE = new ImageIcon("res/pieces/othellooh.png");
    static final Icon EXPIECE = new ImageIcon("res/pieces/othelloex.png");
 
-
    private Marker currentPlayer;
    private Marker[][] board = new Marker[BOARDHW][BOARDHW];
 
@@ -21,7 +20,6 @@ public class OthelloModel implements SimpleGameInterface
    {
       resetBoard();
    }
-
 
    // this game returns a number height/width
    // all games are built with square boards, if the game doesn't have a square
@@ -49,7 +47,7 @@ public class OthelloModel implements SimpleGameInterface
    // and returns true or false if the move was legal/placed
    public boolean move(int horiz, int vert)
    {
-      return false;
+      
    }
 
    // This method is so the controller can ask whose turn it is.
@@ -78,7 +76,7 @@ public class OthelloModel implements SimpleGameInterface
       board[3][4] = Marker.EX;
       board[4][3] = Marker.EX;
       board[4][4] = Marker.OH;
-      
+
       currentPlayer = Marker.OH;
    }
 
@@ -88,7 +86,7 @@ public class OthelloModel implements SimpleGameInterface
       if (board[horiz][vert] == Marker.MT)
       {
          return new GamePiece(horiz, vert, true, MTPIECE);
-      }
+      } 
       else if (board[horiz][vert] == Marker.EX)
       {
          return new GamePiece(horiz, vert, false, EXPIECE);
@@ -106,13 +104,20 @@ public class OthelloModel implements SimpleGameInterface
       return ICON;
    }
 
+   public boolean forfeitTurn()
+   {
+      switchPlayers();
+      return true;
+   }
+   
    // simple private method to switch the active player
    private void switchPlayers()
    {
       if (currentPlayer == Marker.EX)
       {
          currentPlayer = Marker.OH;
-      } else
+      } 
+      else
       {
          currentPlayer = Marker.EX;
       }
