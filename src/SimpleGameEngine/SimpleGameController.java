@@ -23,8 +23,14 @@ public class SimpleGameController implements ActionListener
       // set currently active game
       currentGame = index;
       // reset the game
-      myGames[currentGame].resetBoard();
       myViewer.setNewGame();
+      resetGame();
+   }
+   
+   // method to reset the current game
+   void resetGame()
+   {
+      myGames[currentGame].resetBoard();
       refreshGame();
    }
 

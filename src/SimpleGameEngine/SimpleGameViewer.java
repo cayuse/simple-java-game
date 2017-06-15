@@ -98,6 +98,7 @@ public class SimpleGameViewer extends JFrame
       }
       configureMainMenuButton();
       configureSkipTurnButton();
+      configureResetButton();
       refreshScreen();
    }
 
@@ -139,6 +140,18 @@ public class SimpleGameViewer extends JFrame
       panelLeft.setVisible(false);
       panelLeft.setVisible(true);
    }
+   
+   // sets up the panel so that the text is within the border
+   private void setPanelVars(JPanel panel, String name)
+   {
+      TitledBorder border = new TitledBorder(name);
+      border.setTitleJustification(TitledBorder.LEFT);
+      border.setTitlePosition(TitledBorder.TOP);
+
+      panel.setBorder(border);
+      panel.setEnabled(true);
+      panel.setVisible(true);
+   }
 
    // function to create a "main menu" button with callback to controller
    private void configureMainMenuButton()
@@ -149,6 +162,20 @@ public class SimpleGameViewer extends JFrame
          public void actionPerformed(ActionEvent e)
          {
             myController.mainMenu();
+         }
+      });
+      panelLeft.add(button);
+   }
+   
+   // function to create a "reset" button with callback to controller
+   private void configureResetButton()
+   {
+      JButton button = new JButton("Reset");
+      button.addActionListener(new ActionListener()
+      {
+         public void actionPerformed(ActionEvent e)
+         {
+            myController.resetGame();
          }
       });
       panelLeft.add(button);
@@ -182,18 +209,6 @@ public class SimpleGameViewer extends JFrame
       });
       button.setLayout(null);
       panelLeft.add(button);
-   }
-
-   // sets up the panel so that the text is within the border
-   private void setPanelVars(JPanel panel, String name)
-   {
-      TitledBorder border = new TitledBorder(name);
-      border.setTitleJustification(TitledBorder.LEFT);
-      border.setTitlePosition(TitledBorder.TOP);
-
-      panel.setBorder(border);
-      panel.setEnabled(true);
-      panel.setVisible(true);
    }
 
    /*

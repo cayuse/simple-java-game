@@ -47,8 +47,6 @@ public class OthelloModel implements SimpleGameInterface
    // and returns true or false if the move was legal/placed
    public boolean move(int horiz, int vert)
    {
-      System.out.println(horiz);
-      System.out.println(vert);
       boolean legit = false;
       legit = checkMoveDirections(horiz, vert);
       if (legit)
