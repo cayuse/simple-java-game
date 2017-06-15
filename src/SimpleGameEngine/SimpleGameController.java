@@ -77,6 +77,10 @@ public class SimpleGameController implements ActionListener
 
    public void actionPerformed(ActionEvent e)
    {
+      ClickedButton btn = (ClickedButton)e.getSource();
+
+      System.out.println(btn.horiz);
+      System.out.println(btn.vert);
       int i = 0;
       i++;
       i++;

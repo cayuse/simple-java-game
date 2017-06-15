@@ -88,7 +88,9 @@ public class SimpleGameViewer extends JFrame
             JComponent nextItem;
             if (thisPiece.isClickable)
             {
-               nextItem = new JButton("", thisPiece.icon);
+               nextItem = new ClickedButton("", thisPiece.icon);
+               ClickedButton.horiz = thisPiece.horiz;
+               ClickedButton.vert = thisPiece.vert;
                ((JButton) nextItem).addActionListener(myController);
             }
             else
